@@ -10,7 +10,7 @@ Project ini dibangun menggunakan <strong>Laravel 12</strong> dan <strong>PHP 8.2
 
 1. Back-end Developers: [DylonKejhu](https://github.com/DylonKejhu),
 2. Front-end Developers: [UrLords](https://github.com/UrLords),
-3. UI/UX:
+3. UI/UX: [nolaaa48](https://github.com/nolaaa48), [1](), [2]()
 
 ## Fitur
 
@@ -26,18 +26,14 @@ Project ini dibangun menggunakan <strong>Laravel 12</strong> dan <strong>PHP 8.2
 5. Form barebone untuk tambah & edit produk/kategori
 
 ## Cara Setup Lokal
+
 Pastikan sudah menginstall [php](https://www.youtube.com/watch?v=aNAJmCL_s9Y) dan [Composer](https://www.youtube.com/watch?v=15XYja-juSA).  
 Clone repo:
 
 ```bash
+# syarat pointer harus sudah ada di dalam folder htdocs
 git clone https://github.com/DylonKejhu/uasframework.git
 cd uasframework
-```
-
-Install composer kalau belum:
-
-```bash
-composer install
 ```
 
 Buat file .env
@@ -47,12 +43,12 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Atur file .env pada ~/uasframework/.env sesuai dengan nama database yang dibuat  
+Atur file .env pada ~/uasframework/.env sesuai dengan nama database yang ingin dibuat ketika menjalankan perintah selanjutnya
 
 ```bash
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE={namadatabase}
+DB_DATABASE={namadatabase} <----- mohon diubah namanya
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -69,7 +65,8 @@ Jalankan server:
 php artisan serve
 ```
 
-Akses di: <http://127.0.0.1:8000>
+Akses di: <http://127.0.0.1:8000>  
+phpmyadmin diakses di <http://127.0.0.1/phpmyadmin>
 
 ## Workflow Git & Branch
 
