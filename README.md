@@ -8,9 +8,9 @@ Project ini dibangun menggunakan <strong>Laravel 12</strong> dan <strong>PHP 8.2
 
 ## Pembagian Tugas
 
-1. Back-end Developers: [DylonKejhu](https://github.com/DylonKejhu),
-2. Front-end Developers: [UrLords](https://github.com/UrLords),
-3. UI/UX: [nolaaa48](https://github.com/nolaaa48), [1](), [2]()
+1. Back-end Developers (keju): [DylonKejhu](https://github.com/DylonKejhu),
+2. Front-end Developers (eko): [UrLords](https://github.com/UrLords),
+3. UI/UX (romeo): [nolaaa48](https://github.com/nolaaa48), Evan, [bimodwikusumo](https://github.com/bimodwikusumo), [gustianidwi22-dotcom](https://github.com/gustianidwi22-dotcom)
 
 ## Fitur
 
@@ -71,21 +71,20 @@ phpmyadmin diakses di <http://127.0.0.1/phpmyadmin>
 ## Workflow Git & Branch
 
 Branch utama: main branch utama untuk setelah dimerge  
-Branch dev: keju,1,2,3,4 branch kalian
+Branch dev: keju, eko, romeo  
 Cara push branch baru:
 
 ```bash
 # masuk ke branch kalian
 git checkout -b nama-branch-kalian
-# buat perubahan
-git add .
+# Sesuaikan dengan nama file yang diubah saja
+git add filepath/relatif
 git commit -m "Deskripsi perubahan (wajib diisi)"
 git push -u origin nama-branch-kalian
 
 ```
 
-Merge ke main:
-Sebelum ingin merge mohon hubungi admin terlebih dahulu
+### Sebelum ingin merge, mohon hubungi admin terlebih dahulu.
 
 ## Struktur Database
 
