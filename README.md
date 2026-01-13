@@ -6,6 +6,13 @@ ParamFresh adalah sistem web untuk mendigitalisasi operasional toko yang menjual
 Project ini dibangun menggunakan <strong>Laravel 12</strong> dan <strong>PHP 8.2</strong>, dengan database MySQL.
 </div>
 
+## Pembagian Tugas
+
+1. Head Developer: [DylonKejhu](https://github.com/DylonKejhu)
+2. Back-end Developers:
+3. Front-end Developers:
+4. UI/UX:
+
 ## Fitur
 
 1. CRUD Produk
@@ -41,7 +48,15 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Atur database di .env sesuai lokal (DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD)
+Atur file .env pada ~/uasframework/.env sesuai dengan nama database yang dibuat  
+
+```bash
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE={namadatabase}
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
 Migrasi dan seed database:
 
@@ -59,9 +74,9 @@ Akses di: <http://127.0.0.1:8000>
 
 ## Workflow Git & Branch
 
-- Branch utama: main → branch utama untuk setelah dimerge
-- Branch dev: keju,1,2,3,4 → branch kalian
-- Cara push branch baru:
+Branch utama: main branch utama untuk setelah dimerge  
+Branch dev: keju,1,2,3,4 branch kalian
+Cara push branch baru:
 
 ```bash
 # masuk ke branch kalian
@@ -82,7 +97,7 @@ Sebelum ingin merge mohon hubungi admin terlebih dahulu
 
 | Field      | Tipe      | Keterangan           |
 |------------|-----------|----------------------|
-| id         | bigint    | Primary Key          |
+| id         | int       | Primary Key          |
 | name       | varchar   | Nama kategori        |
 | slug       | varchar   | Slug kategori        |
 | created_at | timestamp | Timestamp created    |
@@ -92,13 +107,13 @@ Sebelum ingin merge mohon hubungi admin terlebih dahulu
 
 | Field          | Tipe      | Keterangan                            |
 |----------------|-----------|---------------------------------------|
-| id             | bigint    | Primary Key                           |
-| category_id    | bigint    | Foreign Key → categories.id           |
+| id             | int       | Primary Key                           |
+| category_id    | int       | Foreign Key → categories.id           |
 | name           | varchar   | Nama produk                           |
 | slug           | varchar   | Slug produk                           |
 | unit           | varchar   | Satuan (kg, ikat, biji, bungkus, dll) |
-| price          | integer   | Harga produk                          |
-| stock_quantity | integer   | Stok produk                           |
+| price          | int       | Harga produk                          |
+| stock_quantity | int       | Stok produk                           |
 | created_at     | timestamp | Timestamp created                     |
 | updated_at     | timestamp | Timestamp updated                     |
 
