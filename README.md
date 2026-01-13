@@ -8,10 +8,9 @@ Project ini dibangun menggunakan <strong>Laravel 12</strong> dan <strong>PHP 8.2
 
 ## Pembagian Tugas
 
-1. Head Developer: [DylonKejhu](https://github.com/DylonKejhu)
-2. Back-end Developers:
-3. Front-end Developers:
-4. UI/UX:
+1. Back-end Developers: [DylonKejhu](https://github.com/DylonKejhu),
+2. Front-end Developers: [UrLords](https://github.com/UrLords),
+3. UI/UX:
 
 ## Fitur
 
@@ -27,7 +26,7 @@ Project ini dibangun menggunakan <strong>Laravel 12</strong> dan <strong>PHP 8.2
 5. Form barebone untuk tambah & edit produk/kategori
 
 ## Cara Setup Lokal
-
+Pastikan sudah menginstall [php](https://www.youtube.com/watch?v=aNAJmCL_s9Y) dan [Composer](https://www.youtube.com/watch?v=15XYja-juSA).  
 Clone repo:
 
 ```bash
