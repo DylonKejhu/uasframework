@@ -17,37 +17,41 @@ Project ini dibangun menggunakan <strong>Laravel 12</strong> dan <strong>PHP 8.2
 ### ✅ Fitur Backend yang Sudah Dikerjakan
 
 - ✅ **CRUD Produk**
-  - Form barebone untuk tambah & edit produk
-  - Tabel produk menampilkan: Nama, Kategori, Harga, Satuan, Stok
+  - ✅ Form barebone untuk tambah & edit produk
+  - ✅ Tabel produk menampilkan: Nama, Kategori, Harga, Satuan, Stok
   
 - ✅ **CRUD Kategori**
-  - Form barebone untuk tambah & edit kategori
+  - ✅ Form barebone untuk tambah & edit kategori
   
 - ✅ **CRUD Transaksi**
-  - Form checkout dengan multi-select produk
-  - Validasi stok otomatis
-  - Pengurangan stok otomatis setelah transaksi
-  - Perhitungan total harga otomatis
-  - Tabel transaksi menampilkan: ID, Total Harga, Detail Items, Tanggal
+  - ✅ Form checkout dengan multi-select produk
+  - ✅ Validasi stok otomatis
+  - ✅ Pengurangan stok otomatis setelah transaksi
+  - ✅ Perhitungan total harga otomatis
+  - ✅ Tabel transaksi menampilkan: ID, Total Harga, Detail Items, Tanggal
   
 - ✅ **Seeder untuk data awal** (produk & kategori)
 
 ### Fitur yang Sedang Dikerjakan
 
 - ⬜ **Authentication & Authorization**
-  - Login/Register
-  - Role Management (Admin, Kasir)
-  - Middleware untuk proteksi route
-  - Session management
+  - ⬜ Login/Register
+  - ⬜ Role Management (Admin, Kasir)
+  - ⬜ Middleware untuk proteksi route
+  - ⬜ Session management
 
 - ⬜ **Search & Filter**
-  - Pencarian produk
+  - ⬜ Pencarian produk tiap controller
   - ✅ Filter berdasarkan kategori
   - ✅ Filter transaksi berdasarkan tanggal
 
-- ⬜ **Dashboard**
-  - Statistik penjualan
-  - Alert stok menipis  
+- ✅ **Dashboard**
+  - ✅ Statistik penjualan
+  - ✅ Pencarian produk
+  - ✅ Alert stok menipis  
+  - ✅ Produk Terlaris
+  - ✅ Transaksi Terbaru
+  - ✅ Riwayat Transaksi
 
 ## Cara Setup Lokal
 
@@ -79,7 +83,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Migrasi dan seed database:
+Migrasi dan Seed database:
 
 ```bash
 php artisan migrate:fresh --seed
@@ -117,7 +121,7 @@ git push -u origin nama-branch-kalian
 ### Users (untuk fitur authentication)
 
 | Field             | Tipe      | Keterangan                    |
-|--------------   --|-----------|-------------------------------|
+|-------------------|-----------|-------------------------------|
 | id                | int       | Primary Key                   |
 | name              | varchar   | Nama user                     |
 | email             | varchar   | Email (unique)                |
@@ -258,20 +262,11 @@ git push -u origin nama-branch-kalian
 - **Frontend**: Blade Template Engine
 - **Package Manager**: Composer
 
-## Kontribusi
+## Peraturan Merging
 
-Jika ingin berkontribusi:
-
-1. Fork repository ini
-2. Buat branch baru (`git checkout -b feature/AmazingFeature`)
-3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
-4. Push ke branch (`git push origin feature/AmazingFeature`)
-5. Buat Pull Request dan hubungi admin
+Jika ingin berkontribusi:  
+Buat Pull Request dan hubungi admin
 
 ## License
 
-Project ini dibuat untuk keperluan akademik.
-
-## Contact
-
-Untuk pertanyaan atau diskusi, silakan hubungi tim developer melalui GitHub atau create issue di repository ini.
+Project ini dibuat untuk keperluan akademik dan hak cipta diatur oleh suasana hati masing - masing.

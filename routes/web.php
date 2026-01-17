@@ -1,23 +1,19 @@
 <?php
-
+#Laravel 12 stuff (gda di materi)
 use Illuminate\Support\Facades\Route;
-use App\Models\Product;
-use App\Models\Category;
-
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 
 
-Route::get('/', function () {
-    return view('welcome', [
-        'products' => Product::with('category')->get(),
-        'categories' => Category::all(),
-    ]);
-});
 
+// Dashboard Routes
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+// Category Routes (Full Resource)
 Route::resource('categories', CategoryController::class);
+// Product Routes (Full Resource)
 Route::resource('products', ProductController::class);
-
-#tidak full resource utk transaksi (modifikasi struk itu berbahaya)
+// Transaction Routes (Tidak full resource karena modifikasi struk ity berbahaya)
 Route::resource('transactions', TransactionController::class)->only(['index', 'create', 'store']);
