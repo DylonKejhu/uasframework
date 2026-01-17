@@ -27,12 +27,12 @@
             <td>{{ $product->unit }}</td>
             <td>{{ $product->stock_quantity }}</td>
             <td>
-                <!-- Edit -->
+                <!-- Edit Produk-->
                 <a href="{{ route('products.edit', $product->id) }}">
                     <button>Edit</button>
                 </a>
 
-                <!-- Hapus -->
+                <!-- Hapus Produk-->
                 <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline">
                     @csrf
                     @method('DELETE')

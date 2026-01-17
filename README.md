@@ -8,22 +8,46 @@ Project ini dibangun menggunakan <strong>Laravel 12</strong> dan <strong>PHP 8.2
 
 ## Pembagian Tugas
 
-1. Back-end Developers (keju): [DylonKejhu](https://github.com/DylonKejhu),
-2. Front-end Developers (eko): [UrLords](https://github.com/UrLords),
+1. Back-end Developers (keju): [DylonKejhu](https://github.com/DylonKejhu)
+2. Front-end Developers (eko): [UrLords](https://github.com/UrLords)
 3. UI/UX (romeo): [nolaaa48](https://github.com/nolaaa48), Evan, [bimodwikusumo](https://github.com/bimodwikusumo), [gustianidwi22-dotcom](https://github.com/gustianidwi22-dotcom)
 
 ## Fitur
 
-1. CRUD Produk
-2. CRUD Kategori
-3. Seeder untuk data awal (produk & kategori)
-4. Tabel produk menampilkan:
-    - Nama Produk
-    - Kategori
-    - Harga
-    - Satuan
-    - Stok
-5. Form barebone untuk tambah & edit produk/kategori
+### ✅ Fitur Backend yang Sudah Dikerjakan
+
+- ✅ **CRUD Produk**
+  - Form barebone untuk tambah & edit produk
+  - Tabel produk menampilkan: Nama, Kategori, Harga, Satuan, Stok
+  
+- ✅ **CRUD Kategori**
+  - Form barebone untuk tambah & edit kategori
+  
+- ✅ **CRUD Transaksi**
+  - Form checkout dengan multi-select produk
+  - Validasi stok otomatis
+  - Pengurangan stok otomatis setelah transaksi
+  - Perhitungan total harga otomatis
+  - Tabel transaksi menampilkan: ID, Total Harga, Detail Items, Tanggal
+  
+- ✅ **Seeder untuk data awal** (produk & kategori)
+
+### Fitur yang Sedang Dikerjakan
+
+- ⬜ **Authentication & Authorization**
+  - Login/Register
+  - Role Management (Admin, Kasir)
+  - Middleware untuk proteksi route
+  - Session management
+
+- ⬜ **Search & Filter**
+  - Pencarian produk
+  - ✅ Filter berdasarkan kategori
+  - ✅ Filter transaksi berdasarkan tanggal
+
+- ⬜ **Dashboard**
+  - Statistik penjualan
+  - Alert stok menipis  
 
 ## Cara Setup Lokal
 
@@ -31,9 +55,10 @@ Pastikan sudah menginstall [php](https://www.youtube.com/watch?v=aNAJmCL_s9Y) da
 Clone repo:
 
 ```bash
-# syarat pointer harus sudah ada di dalam folder htdocs
+# syarat directory harus sudah ada di dalam folder htdocs
 git clone https://github.com/DylonKejhu/uasframework.git
 cd uasframework
+composer install
 ```
 
 Buat file .env
@@ -43,12 +68,13 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Atur file .env pada ~/uasframework/.env sesuai dengan nama database yang ingin dibuat ketika menjalankan perintah selanjutnya
+Atur file .env pada ~/uasframework/.env dan BUAT database di <http://127.0.0.1/phpmyadmin> dengan nama yang sama dan format utf8 general ci
 
 ```bash
+#contoh yang digunakan dalam development kita
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE={namadatabase} <----- mohon diubah namanya
+DB_DATABASE=paramadb
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -84,9 +110,23 @@ git push -u origin nama-branch-kalian
 
 ```
 
-### Sebelum ingin merge, mohon hubungi admin terlebih dahulu.
+### Sebelum ingin merge, mohon hubungi admin terlebih dahulu  
 
 ## Struktur Database
+
+### Users (untuk fitur authentication)
+
+| Field             | Tipe      | Keterangan                    |
+|--------------   --|-----------|-------------------------------|
+| id                | int       | Primary Key                   |
+| name              | varchar   | Nama user                     |
+| email             | varchar   | Email (unique)                |
+| password          | varchar   | Password (hashed)             |
+| role              | enum      | Role: admin, kasir            |
+| email_verified_at | timestamp | Timestamp verifikasi email    |
+| remember_token    | varchar   | Token remember me             |
+| created_at        | timestamp | Timestamp created             |
+| updated_at        | timestamp | Timestamp updated             |
 
 ### Categories
 
@@ -111,6 +151,29 @@ git push -u origin nama-branch-kalian
 | stock_quantity | int       | Stok produk                           |
 | created_at     | timestamp | Timestamp created                     |
 | updated_at     | timestamp | Timestamp updated                     |
+
+### Transactions
+
+| Field       | Tipe      | Keterangan                    |
+|-------------|-----------|-------------------------------|
+| id          | int       | Primary Key                   |
+| user_id     | int       | Foreign Key → users.id (null) |
+| total_price | int       | Total harga transaksi         |
+| created_at  | timestamp | Timestamp created             |
+| updated_at  | timestamp | Timestamp updated             |
+
+### Transaction Items
+
+| Field          | Tipe      | Keterangan                        |
+|----------------|-----------|-----------------------------------|
+| id             | int       | Primary Key                       |
+| transaction_id | int       | Foreign Key → transactions.id     |
+| product_id     | int       | Foreign Key → products.id         |
+| quantity       | int       | Jumlah produk                     |
+| price          | int       | Harga satuan saat transaksi       |
+| subtotal       | int       | Harga total (quantity × price)    |
+| created_at     | timestamp | Timestamp created                 |
+| updated_at     | timestamp | Timestamp updated                 |
 
 ## Data Seeder
 
@@ -186,3 +249,29 @@ git push -u origin nama-branch-kalian
 6.10 Desaku Cabe Bubuk  
 6.11 Terasi ABC  
 6.12 Sambal Terasi Uleg
+
+## Teknologi yang Digunakan
+
+- **Framework**: Laravel 12
+- **PHP**: 8.2
+- **Database**: MySQL
+- **Frontend**: Blade Template Engine
+- **Package Manager**: Composer
+
+## Kontribusi
+
+Jika ingin berkontribusi:
+
+1. Fork repository ini
+2. Buat branch baru (`git checkout -b feature/AmazingFeature`)
+3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buat Pull Request dan hubungi admin
+
+## License
+
+Project ini dibuat untuk keperluan akademik.
+
+## Contact
+
+Untuk pertanyaan atau diskusi, silakan hubungi tim developer melalui GitHub atau create issue di repository ini.
