@@ -10,12 +10,26 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     /**
-     * Tampilkan semua produk
+     * Tampilkan semua produk dengan search & filter
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->get();
-        return view('products.index', compact('products'));
+        $query = Product::with('category');
+        
+        // Search produk berdasarkan nama
+        if ($request->has('search') && $request->search != '') {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+        
+        // Filter berdasarkan kategori (ternyata ini aja hehe :D seharian aku debat" gpt :3 also didalam index soalnya dia menampilkan produk hehe)
+        if ($request->has('category_id') && $request->category_id != '') {
+            $query->where('category_id', $request->category_id);
+        }
+        
+        $products = $query->get();
+        $categories = Category::all();
+        
+        return view('products.index', compact('products', 'categories'));
     }
 
     /**

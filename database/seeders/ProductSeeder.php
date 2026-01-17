@@ -91,6 +91,7 @@ class ProductSeeder extends Seeder
                 'slug'        => Str::slug($name),
                 'unit'        => $unit,
                 'price'       => $price,
+                'stock_quantity' => rand(5, 50),
             ]);
         }
     }
