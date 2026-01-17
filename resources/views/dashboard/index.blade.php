@@ -1,258 +1,310 @@
-<!-- TEMPLATE
-Adjust berapa banyak produk yg bsa di display di DashboardController tepatnya pada
-$products = $productsQuery->simplePaginate(AdjustDisiniInteger); -->
+@extends('layouts.app')
 
+@section('title', 'Dashboard - ParamFresh')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - ParamFresh</title>
-</head>
-<body>
-    <h1>Dashboard ParamFresh</h1>
-    
-    <!-- Navigation -->
-    <nav>
-        <a href="{{ route('dashboard') }}">Dashboard</a> | 
-        <a href="{{ route('products.index') }}">Produk</a> | 
-        <a href="{{ route('categories.index') }}">Kategori</a> | 
-        <a href="{{ route('transactions.index') }}">Transaksi</a>
-    </nav>
-    
-    <hr>
-    
-    <!-- Container dengan 2 kolom -->
-    <div style="display: flex; gap: 20px;">
-        
-        <!-- Kolom Kiri: Kategori -->
-        <div style="width: 250px;">
-            <h2>Kategori</h2>
-            <ul style="list-style: none; padding: 0;">
-                <li style="margin-bottom: 10px;">
-                    <a href="{{ route('dashboard') }}" style="text-decoration: none; color: {{ !request('category_id') ? 'blue' : 'black' }}; font-weight: {{ !request('category_id') ? 'bold' : 'normal' }};">
-                        Semua Kategori
-                    </a>
-                </li>
-                @foreach($categories as $category)
-                    <li style="margin-bottom: 10px;">
-                        <a href="{{ route('dashboard', ['category_id' => $category->id]) }}" 
-                           style="text-decoration: none; color: {{ request('category_id') == $category->id ? 'blue' : 'black' }}; font-weight: {{ request('category_id') == $category->id ? 'bold' : 'normal' }};">
-                            {{ $category->name }}
+@section('content')
+    <div class="min-h-screen bg-gradient-to-br from-emerald-50 to-green-50">
+        <div class="flex">
+            <!-- Sidebar Navigation -->
+            <aside class="hidden md:block w-64 bg-emerald-800 text-white h-screen sticky top-0 overflow-y-auto shadow-lg">
+                <div class="p-6">
+                    <h1 class="text-2xl font-bold tracking-tight mb-10">ParamFresh</h1>
+                    <nav class="space-y-2">
+                        <a href="{{ route('dashboard') }}"
+                           class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition {{ Route::currentRouteName() == 'dashboard' ? 'bg-emerald-700' : '' }}">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            Dashboard
                         </a>
-                    </li>
-                @endforeach
-            </ul>
+
+                        <a href="{{ route('products.index') }}"
+                           class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                            Produk
+                        </a>
+
+                        <a href="{{ route('categories.index') }}"
+                           class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+                            Kategori
+                        </a>
+
+                        <a href="{{ route('transactions.index') }}"
+                           class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                            Transaksi
+                        </a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-6 md:p-10">
+                <!-- Header -->
+                <header class="mb-10">
+                    <h1 class="text-3xl md:text-4xl font-bold text-emerald-900">Dashboard ParamFresh</h1>
+                    <p class="text-emerald-700 mt-2">Kelola stok & transaksi toko sayur segar Anda</p>
+                </header>
+
+                <!-- Category Filter -->
+                <div class="mb-8 max-w-xs">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Filter Kategori</label>
+                    <select 
+                        onchange="window.location.href = this.value"
+                        class="w-full px-4 py-3 bg-white border border-emerald-300 rounded-lg shadow-sm focus:border-emerald-500 focus:ring-emerald-500 outline-none transition">
+                        <option value="{{ route('dashboard') }}" {{ !request('category_id') ? 'selected' : '' }}>
+                            Semua Kategori
+                        </option>
+                        @foreach($categories as $category)
+                            <option value="{{ route('dashboard', ['category_id' => $category->id]) }}"
+                                    {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Search Form -->
+                <form method="GET" action="{{ route('dashboard') }}" class="mb-10 flex flex-col sm:flex-row gap-4">
+                    @if(request('category_id'))
+                        <input type="hidden" name="category_id" value="{{ request('category_id') }}">
+                    @endif
+                    <div class="flex-1">
+                        <input type="text" name="search" value="{{ request('search') }}"
+                               placeholder="Cari nama produk..." 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+                    <div class="flex gap-3">
+                        <button type="submit" 
+                                class="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition">
+                            Cari
+                        </button>
+                        <a href="{{ route('dashboard', request()->only('category_id')) }}"
+                           class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition">
+                            Reset
+                        </a>
+                    </div>
+                </form>
+
+                <!-- Products Table -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-emerald-100 mb-12">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-emerald-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">No</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Nama Produk</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Kategori</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Harga</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Satuan</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Stok</th>
+                                    <th class="px-6 py-4 text-center text-sm font-semibold text-emerald-800">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @forelse ($products as $index => $product)
+                                    <tr class="hover:bg-emerald-50/50 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                            {{ ($products->currentPage() - 1) * $products->perPage() + $index + 1 }}
+                                        </td>
+                                        <td class="px-6 py-4 font-medium text-gray-900">{{ $product->name }}</td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">{{ $product->category->name }}</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                                            Rp {{ number_format($product->price, 0, ',', '.') }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">{{ $product->unit }}</td>
+                                        <td class="px-6 py-4 text-sm font-bold
+                                            {{ $product->stock_quantity <= 5 ? 'text-red-600' : 'text-emerald-700' }}">
+                                            {{ $product->stock_quantity }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <a href="{{ route('products.edit', $product->id) }}"
+                                               class="text-indigo-600 hover:text-indigo-800 font-medium">Edit</a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="px-6 py-16 text-center text-gray-500 italic">
+                                            @if(request('search')) Tidak ditemukan produk dengan pencarian ini
+                                            @elseif(request('category_id')) Tidak ada produk di kategori ini
+                                            @else Belum ada produk @endif
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 bg-emerald-50 border-t">
+                        {{ $products->links() }}
+                    </div>
+                </div>
+
+                <!-- Tambah Produk Button -->
+                <div class="mb-12">
+                    <a href="{{ route('products.create') }}"
+                       class="inline-flex items-center px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition shadow-md">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Tambah Produk Baru
+                    </a>
+                </div>
+
+                <!-- Statistics -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-emerald-100">
+                        <h3 class="text-lg font-semibold text-emerald-800">Total Produk</h3>
+                        <p class="text-3xl font-bold text-emerald-600 mt-2">{{ $totalProducts }}</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-emerald-100">
+                        <h3 class="text-lg font-semibold text-emerald-800">Total Kategori</h3>
+                        <p class="text-3xl font-bold text-emerald-600 mt-2">{{ $totalCategories }}</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-emerald-100">
+                        <h3 class="text-lg font-semibold text-emerald-800">Total Transaksi</h3>
+                        <p class="text-3xl font-bold text-emerald-600 mt-2">{{ $totalTransactions }}</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-emerald-100">
+                        <h3 class="text-lg font-semibold text-emerald-800">Total Pendapatan</h3>
+                        <p class="text-3xl font-bold text-emerald-600 mt-2">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</p>
+                    </div>
+                </div>
+
+                <!-- Low Stock Alert -->
+                @if($lowStockProducts->count() > 0)
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-xl mb-12">
+                        <h2 class="text-xl font-bold text-red-800 mb-4">
+                            ⚠️ Peringatan: {{ $lowStockProducts->count() }} Produk Stok Menipis!
+                        </h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-red-200">
+                                <thead class="bg-red-100">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-sm font-medium text-red-800">Nama Produk</th>
+                                        <th class="px-6 py-3 text-left text-sm font-medium text-red-800">Kategori</th>
+                                        <th class="px-6 py-3 text-left text-sm font-medium text-red-800">Stok</th>
+                                        <th class="px-6 py-3 text-left text-sm font-medium text-red-800">Satuan</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-red-100">
+                                    @foreach($lowStockProducts as $product)
+                                        <tr>
+                                            <td class="px-6 py-4">{{ $product->name }}</td>
+                                            <td class="px-6 py-4">{{ $product->category->name }}</td>
+                                            <td class="px-6 py-4 font-bold text-red-700">{{ $product->stock_quantity }}</td>
+                                            <td class="px-6 py-4">{{ $product->unit }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Best Selling Products -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-12 border border-emerald-100">
+                    <h2 class="text-2xl font-bold text-emerald-900 mb-6">Produk Terlaris</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-emerald-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">No</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Nama Produk</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Total Terjual</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @forelse($bestSellingProducts as $index => $product)
+                                    <tr>
+                                        <td class="px-6 py-4 text-sm text-gray-600">{{ $index + 1 }}</td>
+                                        <td class="px-6 py-4 font-medium text-gray-900">{{ $product->name }}</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ $product->total_sold }} pcs</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="px-6 py-12 text-center text-gray-500 italic">
+                                            Belum ada data penjualan
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-12 border border-emerald-100">
+                    <h2 class="text-2xl font-bold text-emerald-900 mb-6">Transaksi Terbaru</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-emerald-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">ID</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Total Harga</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @forelse($recentTransactions as $transaction)
+                                    <tr>
+                                        <td class="px-6 py-4 text-sm text-gray-600">{{ $transaction->id }}</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                                            Rp {{ number_format($transaction->total_price, 0, ',', '.') }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">
+                                            {{ $transaction->created_at->format('d/m/Y H:i') }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="px-6 py-12 text-center text-gray-500 italic">
+                                            Belum ada transaksi
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6">
+                        <a href="{{ route('transactions.index') }}"
+                           class="inline-flex items-center px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition">
+                            Lihat Semua Transaksi
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Transaction History (Last 7 Days) -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-emerald-100">
+                    <h2 class="text-2xl font-bold text-emerald-900 mb-6">Riwayat Transaksi (7 Hari Terakhir)</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-emerald-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Tanggal</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Jumlah Transaksi</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Total Pendapatan</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @forelse($transactionChart as $chart)
+                                    <tr>
+                                        <td class="px-6 py-4 text-sm text-gray-600">{{ date('d/m/Y', strtotime($chart->date)) }}</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ $chart->total }}</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                                            Rp {{ number_format($chart->revenue, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="px-6 py-12 text-center text-gray-500 italic">
+                                            Belum ada data transaksi 7 hari terakhir
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
         </div>
-        
-        <!-- Kolom Kanan: Daftar Produk -->
-        <div style="flex: 1;">
-            <h2>Daftar Produk</h2>
-            
-            <!-- Search Form -->
-            <form method="GET" action="{{ route('dashboard') }}" style="margin-bottom: 20px;">
-                <!-- @if(request('category_id'))
-                    <input type="hidden" name="category_id" value="{{ request('category_id') }}">
-                @endif -->
-                
-                <label for="search">Cari Produk:</label>
-                <input type="text" 
-                       id="search"
-                       name="search" 
-                       placeholder="Masukkan nama produk..." 
-                       value="{{ request('search') }}">
-                
-                <button type="submit">Cari</button>
-                <a href="{{ route('dashboard', request()->only('category_id')) }}">
-                    <button type="button">Reset Pencarian</button>
-                </a>
-            </form>
-            
-            <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Produk</th>
-                        <th>Kategori</th>
-                        <th>Harga</th>
-                        <th>Satuan</th>
-                        <th>Stok</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($products as $index => $product)
-                    <tr>
-                        <td>{{ ($products->currentPage() - 1) * $products->perPage() + $index + 1 }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->category->name }}</td>
-                        <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
-                        <td>{{ $product->unit }}</td>
-                        <td>{{ $product->stock_quantity }}</td>
-                        <td>
-                            <a href="{{ route('products.edit', $product->id) }}">
-                                <button type="button">Edit</button>
-                            </a>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" style="text-align: center;">
-                            @if(request('search'))
-                                Tidak ada produk yang sesuai dengan pencarian
-                            @elseif(request('category_id'))
-                                Tidak ada produk dalam kategori ini
-                            @else
-                                Belum ada produk
-                            @endif
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-            
-            <!-- Pagination -->
-            <div style="margin-top: 20px;">
-                {{ $products->links() }}
-            </div>
-            
-            <a href="{{ route('products.create') }}">
-                <button type="button" style="margin-top: 15px;">Tambah Produk Baru</button>
-            </a>
-        </div>
-        
     </div>
-    
-    <hr>
-    
-    <!-- Statistics -->
-    <h2>Statistik</h2>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <tr>
-            <th>Total Produk</th>
-            <th>Total Kategori</th>
-            <th>Total Transaksi</th>
-            <th>Total Pendapatan</th>
-        </tr>
-        <tr>
-            <td>{{ $totalProducts }}</td>
-            <td>{{ $totalCategories }}</td>
-            <td>{{ $totalTransactions }}</td>
-            <td>Rp {{ number_format($totalRevenue, 0, ',', '.') }}</td>
-        </tr>
-    </table>
-    
-    <hr>
-    
-    <!-- Low Stock Alert -->
-    <h2>Stok Menipis (Stok < 10)</h2>
-    @if($lowStockProducts->count() > 0)
-        <p><strong>PERINGATAN: {{ $lowStockProducts->count() }} produk stok menipis!</strong></p>
-        <table border="1" cellpadding="8" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Nama Produk</th>
-                    <th>Kategori</th>
-                    <th>Stok</th>
-                    <th>Satuan</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($lowStockProducts as $product)
-                    <tr>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->category->name }}</td>
-                        <td>{{ $product->stock_quantity }}</td>
-                        <td>{{ $product->unit }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @else
-        <p>Semua produk stok aman</p>
-    @endif
-    
-    <hr>
-    
-    <!-- Best Selling Products -->
-    <h2>Produk Terlaris</h2>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama Produk</th>
-                <th>Total Terjual</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($bestSellingProducts as $index => $product)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $product->name }}</td>
-                    <td>{{ $product->total_sold }} pcs</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3">Belum ada data penjualan</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-    
-    <hr>
-    
-    <!-- Recent Transactions -->
-    <h2>Transaksi Terbaru</h2>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Total Harga</th>
-                <th>Tanggal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($recentTransactions as $transaction)
-                <tr>
-                    <td>{{ $transaction->id }}</td>
-                    <td>Rp {{ number_format($transaction->total_price, 0, ',', '.') }}</td>
-                    <td>{{ $transaction->created_at->format('d/m/Y H:i') }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3">Belum ada transaksi</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-    <a href="{{ route('transactions.index') }}"><button type="button">Lihat Semua Transaksi</button></a>
-    
-    <hr>
-    
-    <!-- Riwayat Transaksi (7 Hari Terakhir) -->
-    <h2>Riwayat Transaksi (7 Hari Terakhir)</h2>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Tanggal</th>
-                <th>Jumlah Transaksi</th>
-                <th>Total Pendapatan</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($transactionChart as $chart)
-                <tr>
-                    <td>{{ date('d/m/Y', strtotime($chart->date)) }}</td>
-                    <td>{{ $chart->total }}</td>
-                    <td>Rp {{ number_format($chart->revenue, 0, ',', '.') }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3">Belum ada data transaksi 7 hari terakhir</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</body>
-</html>
+@endsection
