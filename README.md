@@ -1,16 +1,14 @@
 # ParamFresh: Laravel Web App
 
-<div style="text-align: justify;">
 ParamFresh adalah sistem web untuk mendigitalisasi operasional toko yang menjual sayuran segar, bumbu dapur, bahan masakan, daging & makanan laut, serta minyak dan saus. Sistem ini dikembangkan untuk mengatasi pencatatan transaksi yang tidak terintegrasi dengan stok, sehingga mempermudah pengelolaan inventaris yang lebih akurat.
 
-Project ini dibangun menggunakan <strong>Laravel 12</strong> dan <strong>PHP 8.2</strong>, dengan database MySQL.
-</div>
+Project ini dibangun menggunakan **Laravel 12** dan **PHP 8.2**, dengan database MySQL.
 
-## Pembagian Tugas
+## Kontributor
 
-1. Back-end Developers (keju): [DylonKejhu](https://github.com/DylonKejhu)
-2. Front-end Developers (eko): [UrLords](https://github.com/UrLords)
-3. UI/UX (romeo): [nolaaa48](https://github.com/nolaaa48), Evan, [bimodwikusumo](https://github.com/bimodwikusumo), [gustianidwi22-dotcom](https://github.com/gustianidwi22-dotcom)
+1. **Back-end Developers (keju):** [DylonKejhu](https://github.com/DylonKejhu)
+2. **Front-end Developer & UI (eko):** [UrLords](https://github.com/UrLords)
+3. **UI/UX (romeo):** [nolaaa48](https://github.com/nolaaa48)
 
 ## Fitur
 
@@ -264,8 +262,7 @@ git push -u origin nama-branch-kalian
 
 ## Peraturan Merging
 
-Jika ingin berkontribusi:  
-Buat Pull Request dan hubungi admin
+Jika ingin berkontribusi mohon buat Pull Request dan hubungi admin
 
 ## License
 
