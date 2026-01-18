@@ -18,6 +18,15 @@ class Product extends Model
         'stock_quantity',
     ];
 
+    /**
+     * Ni Juga
+     * HEHE
+     */
+    protected $casts = [
+        'price' => 'decimal:2',
+        'stock_quantity' => 'decimal:2',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

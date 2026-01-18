@@ -13,86 +13,107 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = Product::with('category');
-        
-        // Search produk berdasarkan nama
-        if ($request->has('search') && $request->search != '') {
+
+        if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
-        
-        // Filter berdasarkan kategori (ternyata ini aja hehe :D seharian aku debat" gpt :3 also didalam index soalnya dia menampilkan produk hehe)
-        if ($request->has('category_id') && $request->category_id != '') {
+
+        if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
-        
-        $products = $query->get();
-        $categories = Category::all();
-        
-        return view('products.index', compact('products', 'categories'));
+
+        return view('products.index', [
+            'products' => $query->get(),
+            'categories' => Category::all(),
+        ]);
     }
 
     // Form tambah produk
     public function create()
     {
-        $categories = Category::all();
-        return view('products.create', compact('categories'));
+        return view('products.create', [
+            'categories' => Category::all(),
+        ]);
     }
 
     // Simpan produk baru
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric',
-            'unit' => 'required',
-            'stock_quantity' => 'required|integer',
+        $validated = $request->validate([
+            'name'            => 'required|string|max:255',
+            'category_id'     => 'required|exists:categories,id',
+            'price'           => 'required|numeric|min:0',
+            'unit'            => 'required|string|max:50',
+            'stock_quantity'  => 'required|numeric|min:0',
         ]);
+
+        // Enforce integer stock for non-decimal units
+        $unit = strtolower($request->unit);
+        $stock = (float) $request->stock_quantity;
+
+        if (!in_array($unit, ['kg', 'liter', 'l']) && floor($stock) != $stock) {
+            return back()
+                ->withInput()
+                ->withErrors(['stock_quantity' => "Stok untuk satuan '{$request->unit}' harus bilangan bulat"]);
+        }
 
         Product::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'category_id' => $request->category_id,
-            'price' => $request->price,
-            'unit' => $request->unit,
-            'stock_quantity' => $request->stock_quantity,
+            'name'           => $validated['name'],
+            'slug'           => Str::slug($validated['name']),
+            'category_id'    => $validated['category_id'],
+            'price'          => $validated['price'],
+            'unit'           => $validated['unit'],
+            'stock_quantity' => $stock,
         ]);
 
-        return redirect()->route('products.index')
+        return redirect()
+            ->route('products.index')
             ->with('success', 'Produk berhasil ditambahkan');
     }
 
     // Form edit produk
     public function edit(string $id)
     {
-        $product = Product::findOrFail($id);
-        $categories = Category::all();
-
-        return view('products.edit', compact('product', 'categories'));
+        return view('products.edit', [
+            'product'    => Product::findOrFail($id),
+            'categories' => Category::all(),
+        ]);
     }
 
     // Update produk
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric',
-            'unit' => 'required',
-            'stock_quantity' => 'required|integer',
+        $validated = $request->validate([
+            'name'            => 'required|string|max:255',
+            'category_id'     => 'required|exists:categories,id',
+            'price'           => 'required|numeric|min:0',
+            'unit'            => 'required|string|max:50',
+            'stock_quantity'  => 'required|numeric|min:0',
         ]);
+
+        // Enforce integer stock for non-decimal units
+        $unit = strtolower($request->unit);
+        $stock = (float) $request->stock_quantity;
+
+        if (!in_array($unit, ['kg', 'liter', 'l']) && floor($stock) != $stock) {
+            return back()
+                ->withInput()
+                ->withErrors(['stock_quantity' => "Stok untuk satuan '{$request->unit}' harus bilangan bulat"]);
+        }
 
         $product = Product::findOrFail($id);
 
         $product->update([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'category_id' => $request->category_id,
-            'price' => $request->price,
-            'unit' => $request->unit,
-            'stock_quantity' => $request->stock_quantity,
+            'name'           => $validated['name'],
+            'slug'           => Str::slug($validated['name']),
+            'category_id'    => $validated['category_id'],
+            'price'          => $validated['price'],
+            'unit'           => $validated['unit'],
+            'stock_quantity' => $stock,
         ]);
 
-        return redirect()->route('products.index')
+        return redirect()
+            ->route('products.index')
             ->with('success', 'Produk berhasil diupdate');
     }
 
@@ -101,7 +122,8 @@ class ProductController extends Controller
     {
         Product::findOrFail($id)->delete();
 
-        return redirect()->route('products.index')
+        return redirect()
+            ->route('products.index')
             ->with('success', 'Produk berhasil dihapus');
     }
 }

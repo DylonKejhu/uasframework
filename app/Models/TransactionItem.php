@@ -16,6 +16,12 @@ class TransactionItem extends Model
         'price',
         'subtotal',
     ];
+    # sihir (Cast) jadi desimal hehe) damn ini ternyata bkin masalahnya hmm pdhl dah di input di db yg bener
+    protected $casts = [
+        'quantity' => 'decimal:2',
+        'price' => 'decimal:2',
+        'subtotal' => 'decimal:2',
+    ];
 
     public function transaction()
     {

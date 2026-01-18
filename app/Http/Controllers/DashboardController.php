@@ -25,9 +25,13 @@ class DashboardController extends Controller
             ->get();
         
         // Produk Terlaris (berdasarkan total quantity terjual)
+        // Cast quantity as decimal to preserve precision
         $bestSellingProducts = DB::table('transaction_items')
             ->join('products', 'transaction_items.product_id', '=', 'products.id')
-            ->select('products.name', DB::raw('SUM(transaction_items.quantity) as total_sold'))
+            ->select(
+                'products.name',
+                DB::raw('CAST(SUM(transaction_items.quantity) AS DECIMAL(10,3)) as total_sold')
+            )
             ->groupBy('products.id', 'products.name')
             ->orderBy('total_sold', 'desc')
             ->limit(5)
@@ -54,15 +58,12 @@ class DashboardController extends Controller
             $productsQuery->where('name', 'like', '%' . $request->search . '%');
         }
         
-        // Filter kategori (dari sidebar utk view dashboard fitur request dari kamu)
+        // Filter kategori
         if ($request->has('category_id') && $request->category_id != '') {
             $productsQuery->where('category_id', $request->category_id);
         }
         
-        /**
-        * simplePaginate untuk pagination yang lebih sederhana, 
-        * kalau pake fungsi Paginate() juga bisa tapi dia pake bootstrap
-        */
+        // Pagination
         $products = $productsQuery->simplePaginate(10);
         
         // Append query string ke pagination

@@ -30,26 +30,40 @@ class TransactionController extends Controller
         return view('transactions.index', compact('transactions'));
     }
 
-    // Method untuk menampilkan form transaksi baru
-    public function create()
+    // Method untuk menampilkan form transaksi baru dengan filter
+    public function create(Request $request)
     {
-        $products = Product::where('stock_quantity', '>', 0)->get();
+        $query = Product::with('category')->where('stock_quantity', '>', 0);
+        
+        // Search produk berdasarkan nama
+        if ($request->has('search') && $request->search != '') {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+        
+        // Filter berdasarkan kategori
+        if ($request->has('category_id') && $request->category_id != '') {
+            $query->where('category_id', $request->category_id);
+        }
+        
+        $products = $query->get();
+        
         return view('transactions.create', compact('products'));
     }
 
     // Method untuk menyimpan transaksi
     public function store(Request $request)
     {
-        // Validasi lebih fleksibel
+        // Validation allowing decimals
         $request->validate([
             'items' => 'required|array',
             'items.*.product_id' => 'required|exists:products,id',
-            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.quantity' => 'required|numeric|min:0.001',
             'items.*.selected' => 'nullable',
         ]);
 
         try {
             DB::transaction(function () use ($request) {
+
                 $transaction = Transaction::create([
                     'total_price' => 0,
                 ]);
@@ -58,35 +72,45 @@ class TransactionController extends Controller
                 $hasItems = false;
 
                 foreach ($request->items as $item) {
-                    // cek apakah checkbox dicentang
-                    if (!isset($item['selected']) || !$item['selected']) {
-                        continue; // skip produk yang tidak dipilih
+                    // Skip unchecked items
+                    if (empty($item['selected'])) {
+                        continue;
                     }
 
                     $product = Product::findOrFail($item['product_id']);
+                    $qty = (float) $item['quantity'];
 
-                    // cek stok
-                    if ($product->stock_quantity < $item['quantity']) {
-                        throw new \Exception('Stok ' . $product->name . ' tidak cukup. Tersedia: ' . $product->stock_quantity);
+                    // Enforce integer quantity for non-decimal units
+                    if (!in_array(strtolower($product->unit), ['kg', 'liter', 'l']) && floor($qty) != $qty) {
+                        throw new \Exception(
+                            "Jumlah {$product->name} harus bilangan bulat (satuan: {$product->unit})"
+                        );
                     }
 
-                    $subtotal = $product->price * $item['quantity'];
+                    // Stock check (decimal-safe)
+                    if ($product->stock_quantity < $qty) {
+                        throw new \Exception(
+                            "Stok {$product->name} tidak cukup. Tersedia: {$product->stock_quantity} {$product->unit}"
+                        );
+                    }
+
+                    $subtotal = $product->price * $qty;
 
                     TransactionItem::create([
                         'transaction_id' => $transaction->id,
-                        'product_id' => $product->id,
-                        'quantity' => $item['quantity'],
-                        'price' => $product->price,
-                        'subtotal' => $subtotal,
+                        'product_id'     => $product->id,
+                        'quantity'       => $qty,
+                        'price'          => $product->price,
+                        'subtotal'       => $subtotal,
                     ]);
 
-                    $product->decrement('stock_quantity', $item['quantity']);
+                    // Decimal-safe stock decrement
+                    $product->decrement('stock_quantity', $qty);
 
                     $total += $subtotal;
                     $hasItems = true;
                 }
 
-                // Cek apakah ada item yang dipilih
                 if (!$hasItems) {
                     throw new \Exception('Pilih minimal 1 produk untuk checkout');
                 }

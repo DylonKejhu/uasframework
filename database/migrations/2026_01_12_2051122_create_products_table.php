@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->string('unit'); // kg, bunch, piece
-            $table->integer('stock_quantity')->default(0);
+            $table->decimal('stock_quantity')->default(0); // decimal biar bsa dihitung kyk 0.25 KG Ayam etc
             $table->boolean('is_active')->default(true);
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

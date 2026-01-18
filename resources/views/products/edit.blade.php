@@ -45,8 +45,7 @@
                                     class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none bg-white text-lg shadow-sm transition-all">
                                 <option value="">-- Pilih Kategori --</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                            {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
@@ -61,7 +60,7 @@
                             <div class="space-y-2">
                                 <label for="price" class="block text-lg font-medium text-gray-800">Harga (Rp)</label>
                                 <input type="number" name="price" id="price"
-                                       value="{{ old('price', $product->price) }}" required min="0"
+                                       value="{{ old('price', $product->price) }}" required min="0" step="0.01"
                                        class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-lg shadow-sm transition-all">
                                 @error('price')
                                     <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>
@@ -70,9 +69,18 @@
 
                             <div class="space-y-2">
                                 <label for="unit" class="block text-lg font-medium text-gray-800">Satuan</label>
-                                <input type="text" name="unit" id="unit"
+                                <input type="text" name="unit" id="unit" list="unit-options"
                                        value="{{ old('unit', $product->unit) }}" required
+                                       placeholder="Pilih atau ketik baru"
                                        class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-lg shadow-sm transition-all">
+                                <datalist id="unit-options">
+                                    @php
+                                        $existingUnits = \App\Models\Product::select('unit')->distinct()->orderBy('unit')->pluck('unit');
+                                    @endphp
+                                    @foreach($existingUnits as $existingUnit)
+                                        <option value="{{ $existingUnit }}">
+                                    @endforeach
+                                </datalist>
                                 @error('unit')
                                     <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>
                                 @enderror
@@ -81,7 +89,7 @@
                             <div class="space-y-2">
                                 <label for="stock_quantity" class="block text-lg font-medium text-gray-800">Stok</label>
                                 <input type="number" name="stock_quantity" id="stock_quantity"
-                                       value="{{ old('stock_quantity', $product->stock_quantity) }}" required min="0"
+                                       value="{{ old('stock_quantity', $product->stock_quantity) }}" required min="0" step="0.001"
                                        class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-lg shadow-sm transition-all">
                                 @error('stock_quantity')
                                     <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>

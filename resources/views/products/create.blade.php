@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Produk Baru')
+@section('title', 'Tambah Produk Baru - ParamFresh')
 
 @section('content')
     <div class="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -31,6 +31,7 @@
                             <label for="name" class="block text-lg font-medium text-gray-800">Nama Produk</label>
                             <input type="text" name="name" id="name"
                                    value="{{ old('name') }}" required
+                                   placeholder="Contoh: Bayam Segar"
                                    class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-lg shadow-sm">
                             @error('name')
                                 <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>
@@ -60,7 +61,8 @@
                             <div class="space-y-2">
                                 <label for="price" class="block text-lg font-medium text-gray-800">Harga (Rp)</label>
                                 <input type="number" name="price" id="price"
-                                       value="{{ old('price') }}" required min="0"
+                                       value="{{ old('price') }}" required min="0" step="0.01"
+                                       placeholder="15000"
                                        class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-lg shadow-sm transition-all">
                                 @error('price')
                                     <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>
@@ -69,18 +71,28 @@
 
                             <div class="space-y-2">
                                 <label for="unit" class="block text-lg font-medium text-gray-800">Satuan</label>
-                                <input type="text" name="unit" id="unit"
+                                <input type="text" name="unit" id="unit" list="unit-options"
                                        value="{{ old('unit') }}" required
+                                       placeholder="Pilih atau ketik baru"
                                        class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-lg shadow-sm transition-all">
+                                <datalist id="unit-options">
+                                    @php
+                                        $existingUnits = \App\Models\Product::select('unit')->distinct()->orderBy('unit')->pluck('unit');
+                                    @endphp
+                                    @foreach($existingUnits as $existingUnit)
+                                        <option value="{{ $existingUnit }}">
+                                    @endforeach
+                                </datalist>
                                 @error('unit')
                                     <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <div class="space-y-2">
-                                <label for="stock_quantity" class="block text-lg font-medium text-gray-800">Stok Awal</label>
+                                <label for="stock_quantity" class="block text-lg font-medium text-gray-800">Stok</label>
                                 <input type="number" name="stock_quantity" id="stock_quantity"
-                                       value="{{ old('stock_quantity', 0) }}" required min="0"
+                                       value="{{ old('stock_quantity') }}" required min="0" step="0.001"
+                                       placeholder="10"
                                        class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-lg shadow-sm transition-all">
                                 @error('stock_quantity')
                                     <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>
@@ -89,10 +101,10 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <div class="pt-10 flex justify-end">
+                        <div class="pt-8 flex justify-end">
                             <button type="submit"
                                     class="px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
-                                Simpan Produk Baru
+                                Simpan Produk
                             </button>
                         </div>
                     </form>

@@ -26,6 +26,60 @@
                     </div>
                 </div>
 
+                <!-- Search & Filter Section -->
+                <div class="mb-8 bg-white rounded-xl shadow-md p-6 border border-emerald-100">
+                    <form method="GET" action="{{ route('products.index') }}" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Search Input -->
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Cari Produk</label>
+                                <input type="text" 
+                                       name="search" 
+                                       value="{{ request('search') }}"
+                                       placeholder="Cari nama produk..." 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+                            </div>
+
+                            <!-- Category Filter -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Filter Kategori</label>
+                                <select name="category_id"
+                                        class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+                                    <option value="">Semua Kategori</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" 
+                                                {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex gap-3">
+                            <button type="submit" 
+                                    class="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium">
+                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                                Cari
+                            </button>
+                            <a href="{{ route('products.index') }}"
+                               class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium">
+                                Reset
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Success Message -->
+                @if (session('success'))
+                    <div class="mb-8 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-r">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <!-- Main Table Card -->
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-emerald-100">
                     <div class="overflow-x-auto">
@@ -54,7 +108,10 @@
                                     <td class="px-6 py-5 text-sm font-bold
                                         {{ $product->stock_quantity <= 5 ? 'text-red-600' : 
                                            ($product->stock_quantity <= 10 ? 'text-orange-600' : 'text-emerald-700') }}">
-                                        {{ $product->stock_quantity }}
+                                        @php
+                                            $stock = rtrim(rtrim(number_format($product->stock_quantity, 3, '.', ''), '0'), '.');
+                                        @endphp
+                                        {{ $stock }} {{ $product->unit }}
                                     </td>
                                     <td class="px-6 py-5 text-center text-sm">
                                         <div class="flex items-center justify-center gap-5">
@@ -86,8 +143,12 @@
                                 @empty
                                     <tr>
                                         <td colspan="7" class="px-6 py-16 text-center text-gray-500 italic bg-gray-50">
-                                            Belum ada produk terdaftar.<br>
-                                            Klik tombol di atas untuk menambahkan produk pertama Anda!
+                                            @if(request('search') || request('category_id'))
+                                                Tidak ditemukan produk yang sesuai dengan pencarian Anda.
+                                            @else
+                                                Belum ada produk terdaftar.<br>
+                                                Klik tombol di atas untuk menambahkan produk pertama Anda!
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforelse
