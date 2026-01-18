@@ -4,10 +4,10 @@ ParamFresh adalah sistem web untuk mendigitalisasi operasional toko yang menjual
 
 Project ini dibangun menggunakan **Laravel 12** dan **PHP 8.2**, dengan database MySQL.
 
-## Pembagian Tugas
+## Kontributor
 
 1. **Back-end Developers (keju):** [DylonKejhu](https://github.com/DylonKejhu)
-2. **Front-end Developers (eko):** [UrLords](https://github.com/UrLords)
+2. **Front-end Developer & UI (eko):** [UrLords](https://github.com/UrLords)
 3. **UI/UX (romeo):** [nolaaa48](https://github.com/nolaaa48)
 
 ## Fitur
