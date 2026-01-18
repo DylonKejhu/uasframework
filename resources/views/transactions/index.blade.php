@@ -8,7 +8,7 @@
             <!-- Main Content -->
             <main class="flex-1 p-6 md:p-10">
                 <!-- Header Section -->
-                <div class="flex flex-col sm:flex-row flex-wrap justify-between items-start sm:items-center gap-6 mb-10">
+                <div class="flex flex-col sm:flex-row flex-wrap justify-between items-start sm:items-center gap-4 mb-10">
                     <div>
                         <h1 class="text-3xl md:text-4xl font-bold text-emerald-900">Daftar Transaksi</h1>
                         <p class="text-emerald-700 mt-2">Riwayat penjualan dan pembelian di toko Anda</p>
@@ -26,6 +26,49 @@
                     </div>
                 </div>
 
+                <!-- Filter Section -->
+                <div class="mb-8 bg-white rounded-xl shadow-md p-6 border border-emerald-100">
+                    <form method="GET" action="{{ route('transactions.index') }}" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Date From -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Dari Tanggal</label>
+                                <input type="date" 
+                                       name="date_from" 
+                                       value="{{ request('date_from') }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+                            </div>
+
+                            <!-- Date To -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Sampai Tanggal</label>
+                                <input type="date" 
+                                       name="date_to" 
+                                       value="{{ request('date_to') }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+                            </div>
+
+                            <!-- Empty column for alignment -->
+                            <div class="hidden md:block"></div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex gap-3">
+                            <button type="submit" 
+                                    class="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium">
+                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                                </svg>
+                                Filter
+                            </button>
+                            <a href="{{ route('transactions.index') }}"
+                               class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium">
+                                Reset
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
                 <!-- Success Message -->
                 @if (session('success'))
                     <div class="mb-8 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-r">
@@ -33,7 +76,7 @@
                     </div>
                 @endif
 
-                <!-- Transactions Table -->
+                <!-- Main Table Card -->
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-emerald-100">
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
@@ -56,7 +99,11 @@
                                             <ul class="list-disc list-inside space-y-1">
                                                 @foreach ($transaction->items as $item)
                                                     <li>
-                                                        {{ $item->product->name }} × {{ $item->quantity }}
+                                                        {{ $item->product->name }} × 
+                                                        @php
+                                                            $qty = rtrim(rtrim(number_format($item->quantity, 3, '.', ''), '0'), '.');
+                                                        @endphp
+                                                        {{ $qty }} {{ $item->product->unit }}
                                                         = Rp {{ number_format($item->subtotal, 0, ',', '.') }}
                                                     </li>
                                                 @endforeach
@@ -69,8 +116,12 @@
                                 @empty
                                     <tr>
                                         <td colspan="4" class="px-6 py-16 text-center text-gray-500 italic bg-gray-50">
-                                            Belum ada transaksi.<br>
-                                            Klik tombol di atas untuk membuat transaksi pertama Anda!
+                                            @if(request('date_from') || request('date_to'))
+                                                Tidak ditemukan transaksi pada rentang tanggal tersebut.
+                                            @else
+                                                Belum ada transaksi.<br>
+                                                Klik tombol di atas untuk membuat transaksi pertama Anda!
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforelse

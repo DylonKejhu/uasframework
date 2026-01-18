@@ -61,7 +61,7 @@
                             <div class="space-y-2">
                                 <label for="price" class="block text-lg font-medium text-gray-800">Harga (Rp)</label>
                                 <input type="number" name="price" id="price"
-                                       value="{{ old('price', $product->price) }}" required min="0"
+                                       value="{{ old('price', $product->price) }}" required min="0" step="0.01"
                                        class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-lg shadow-sm transition-all">
                                 @error('price')
                                     <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>
@@ -72,6 +72,7 @@
                                 <label for="unit" class="block text-lg font-medium text-gray-800">Satuan</label>
                                 <input type="text" name="unit" id="unit"
                                        value="{{ old('unit', $product->unit) }}" required
+                                       placeholder="kg, liter, pcs, ikat"
                                        class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-lg shadow-sm transition-all">
                                 @error('unit')
                                     <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>
@@ -81,7 +82,7 @@
                             <div class="space-y-2">
                                 <label for="stock_quantity" class="block text-lg font-medium text-gray-800">Stok</label>
                                 <input type="number" name="stock_quantity" id="stock_quantity"
-                                       value="{{ old('stock_quantity', $product->stock_quantity) }}" required min="0"
+                                       value="{{ old('stock_quantity', $product->stock_quantity) }}" required min="0" step="0.001"
                                        class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-lg shadow-sm transition-all">
                                 @error('stock_quantity')
                                     <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>

@@ -11,10 +11,9 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        $cat = fn ($name) => Category::where('name', $name)->first()->id;
+        $cat = fn ($name) => Category::where('name', $name)->firstOrFail()->id;
 
         $products = [
-
             // ======================
             // SAYURAN
             // ======================
@@ -85,13 +84,21 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($products as [$category, $name, $unit, $price]) {
+            # vb utk tipe unit yg berbeda
+            $stockQuantity = match ($unit) {
+                'kg'     => fake()->randomFloat(3, 0.5, 10),
+                'liter'  => fake()->randomFloat(3, 1, 30),
+                default  => random_int(10, 100),
+            };
+
             Product::create([
-                'category_id' => $cat($category),
-                'name'        => $name,
-                'slug'        => Str::slug($name),
-                'unit'        => $unit,
-                'price'       => $price,
-                'stock_quantity' => rand(5, 50),
+                'category_id'    => $cat($category),
+                'name'           => $name,
+                'slug'           => Str::slug($name),
+                'unit'           => $unit,
+                'price'          => $price,
+                'stock_quantity' => $stockQuantity,
+                'is_active'      => true,
             ]);
         }
     }
