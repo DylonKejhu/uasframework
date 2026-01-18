@@ -8,17 +8,28 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    public function index()
+    // Tampilkan semua kategori dengan search
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        $query = Category::query();
+        
+        // Search kategori berdasarkan nama
+        if ($request->has('search') && $request->search != '') {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+        
+        $categories = $query->get();
+        
         return view('categories.index', compact('categories'));
     }
 
+    // Form tambah kategori
     public function create()
     {
         return view('categories.create');
     }
 
+    // Simpan kategori baru
     public function store(Request $request)
     {
         $request->validate([
@@ -33,11 +44,13 @@ class CategoryController extends Controller
         return redirect()->route('categories.index');
     }
 
+    // Form edit kategori
     public function edit(Category $category)
     {
         return view('categories.edit', compact('category'));
     }
 
+    // Update kategori
     public function update(Request $request, Category $category)
     {
         $request->validate([
@@ -52,6 +65,7 @@ class CategoryController extends Controller
         return redirect()->route('categories.index');
     }
 
+    // Hapus kategori
     public function destroy(Category $category)
     {
         $category->delete();
