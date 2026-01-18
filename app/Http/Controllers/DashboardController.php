@@ -54,7 +54,7 @@ class DashboardController extends Controller
             $productsQuery->where('name', 'like', '%' . $request->search . '%');
         }
         
-        // Filter kategori (dari URL parameter atau dari sidebarny)
+        // Filter kategori (dari sidebar utk view dashboard fitur request dari kamu)
         if ($request->has('category_id') && $request->category_id != '') {
             $productsQuery->where('category_id', $request->category_id);
         }

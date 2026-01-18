@@ -9,9 +9,7 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    /**
-     * Tampilkan semua produk dengan search & filter
-     */
+    // Tampilkan semua produk dengan search & filter
     public function index(Request $request)
     {
         $query = Product::with('category');
@@ -32,18 +30,14 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'categories'));
     }
 
-    /**
-     * Form tambah produk
-     */
+    // Form tambah produk
     public function create()
     {
         $categories = Category::all();
         return view('products.create', compact('categories'));
     }
 
-    /**
-     * Simpan produk baru
-     */
+    // Simpan produk baru
     public function store(Request $request)
     {
         $request->validate([
@@ -67,9 +61,7 @@ class ProductController extends Controller
             ->with('success', 'Produk berhasil ditambahkan');
     }
 
-    /**
-     * Form edit produk
-     */
+    // Form edit produk
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
@@ -78,9 +70,7 @@ class ProductController extends Controller
         return view('products.edit', compact('product', 'categories'));
     }
 
-    /**
-     * Update produk
-     */
+    // Update produk
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -106,9 +96,7 @@ class ProductController extends Controller
             ->with('success', 'Produk berhasil diupdate');
     }
 
-    /**
-     * Hapus produk
-     */
+    // Hapus produk
     public function destroy(string $id)
     {
         Product::findOrFail($id)->delete();
