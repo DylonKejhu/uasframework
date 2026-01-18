@@ -5,9 +5,6 @@
 @section('content')
     <div class="min-h-screen bg-gradient-to-br from-emerald-50 to-green-50">
         <div class="flex">
-            <!-- Sidebar Navigation -->
-            @include('layouts.sidebar')
-
             <!-- Main Content -->
             <main class="flex-1 p-6 md:p-10">
                 <!-- Header Section -->

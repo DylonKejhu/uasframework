@@ -2,7 +2,7 @@
 
 ParamFresh adalah sistem web untuk mendigitalisasi operasional toko yang menjual sayuran segar, bumbu dapur, bahan masakan, daging & makanan laut, serta minyak dan saus. Sistem ini dikembangkan untuk mengatasi pencatatan transaksi yang tidak terintegrasi dengan stok dan order brang, sehingga tujuan dibuatnya projek ini adalah untuk mempermudah pengelolaan inventaris yang lebih akurat.
 
-Project ini dibangun menggunakan **Laravel 12** dan **PHP 8.2**, dengan database MySQL.
+Project ini dibangun menggunakan **Laravel 12**, **PHP 8.2** dan **Tailwind**, dengan database MySQL.
 
 ## Kontributor
 

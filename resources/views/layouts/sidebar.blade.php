@@ -1,4 +1,4 @@
-<!-- resources/views/partials/sidebar.blade.php -->
+<!-- resources/views/layouts/sidebar.blade.php -->
 <aside class="hidden md:block w-64 bg-emerald-800 text-white h-screen sticky top-0 overflow-y-auto shadow-lg">
     <div class="p-6">
         <h1 class="text-2xl font-bold tracking-tight mb-10">ParamFresh</h1>
