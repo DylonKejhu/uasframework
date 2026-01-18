@@ -1,18 +1,24 @@
 # ParamFresh: Laravel Web App
 
-ParamFresh adalah sistem web untuk mendigitalisasi operasional toko yang menjual sayuran segar, bumbu dapur, bahan masakan, daging & makanan laut, serta minyak dan saus. Sistem ini dikembangkan untuk mengatasi pencatatan transaksi yang tidak terintegrasi dengan stok, sehingga mempermudah pengelolaan inventaris yang lebih akurat.
+ParamFresh adalah sistem web untuk mendigitalisasi operasional toko yang menjual sayuran segar, bumbu dapur, bahan masakan, daging & makanan laut, serta minyak dan saus. Sistem ini dikembangkan untuk mengatasi pencatatan transaksi yang tidak terintegrasi dengan stok dan order brang, sehingga tujuan dibuatnya projek ini adalah untuk mempermudah pengelolaan inventaris yang lebih akurat.
 
-Project ini dibangun menggunakan **Laravel 12** dan **PHP 8.2**, dengan database MySQL.
+Project ini dibangun menggunakan **Laravel 12**, **PHP 8.2** dan **Tailwind**, dengan database MySQL.
 
 ## Kontributor
 
-1. **Back-end Developers (keju):** [DylonKejhu](https://github.com/DylonKejhu)
-2. **Front-end Developer & UI (eko):** [UrLords](https://github.com/UrLords)
-3. **UI/UX (romeo):** [nolaaa48](https://github.com/nolaaa48)
+1. **Head & Back-end Developer (keju):** [DylonKejhu](https://github.com/DylonKejhu)
+2. **Front-end Developer & UI/UX (eko):** [UrLords](https://github.com/UrLords)
+3. **Supporters:** [nolaaa48](https://github.com/nolaaa48), [GrozyTons](https://github.com/GrozyTons)
 
-## Fitur
+## Milestone
 
-### ✅ Fitur Backend yang Sudah Dikerjakan
+### Fitur yang Dikerjakan
+
+- ⬜ **Authentication & Authorization**
+  - ⬜ Login/Register
+  - ⬜ Role Management (Admin, Kasir)
+  - ⬜ Middleware untuk proteksi route
+  - ⬜ Session management
 
 - ✅ **CRUD Produk**
   - ✅ Form barebone untuk tambah & edit produk
@@ -30,30 +36,21 @@ Project ini dibangun menggunakan **Laravel 12** dan **PHP 8.2**, dengan database
   
 - ✅ **Seeder untuk data awal** (produk & kategori)
 
-### Fitur yang Sedang Dikerjakan
-
-- ⬜ **Authentication & Authorization**
-  - ⬜ Login/Register
-  - ⬜ Role Management (Admin, Kasir)
-  - ⬜ Middleware untuk proteksi route
-  - ⬜ Session management
-
-- ⬜ **Search & Filter**
-  - ⬜ Pencarian produk tiap controller
+- ✅ **Search & Filter**
+  - ✅ Pencarian produk tiap controller
   - ✅ Filter berdasarkan kategori
   - ✅ Filter transaksi berdasarkan tanggal
 
-- ✅ **Dashboard**
+- ⬜ **Dashboard**
   - ✅ Statistik penjualan
-  - ✅ Pencarian produk
-  - ✅ Alert stok menipis  
-  - ✅ Produk Terlaris
-  - ✅ Transaksi Terbaru
-  - ✅ Riwayat Transaksi
+  - ✅ Managemen Produk
+  - ✅ Managemen Kategori
+  - ✅ Managemen Transaksi
+  - ⬜ Managemen Order
 
 ## Cara Setup Lokal
 
-Pastikan sudah menginstall [php](https://www.youtube.com/watch?v=aNAJmCL_s9Y) dan [Composer](https://www.youtube.com/watch?v=15XYja-juSA).  
+Pastikan sudah menginstall [php](https://www.youtube.com/watch?v=aNAJmCL_s9Y), [git](https://www.youtube.com/watch?v=uIjoN19McGU) dan [Composer](https://www.youtube.com/watch?v=15XYja-juSA) (Windows).  
 Clone repo:
 
 ```bash
@@ -70,7 +67,7 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Atur file .env pada ~/uasframework/.env dan BUAT database di <http://127.0.0.1/phpmyadmin> dengan nama yang sama dan format utf8 general ci
+Atur file .env pada ~/uasframework/.env dan **BUAT** database di <http://127.0.0.1/phpmyadmin> dengan nama yang sama dan format utf8 general ci
 
 ```bash
 #contoh yang digunakan dalam development kita
@@ -98,13 +95,13 @@ phpmyadmin diakses di <http://127.0.0.1/phpmyadmin>
 
 ## Workflow Git & Branch
 
-Branch utama: main branch utama untuk setelah dimerge  
-Branch dev: keju, eko, romeo  
-Cara push branch baru:
+Branch utama: main branch utama untuk dimerge  
+Branch dev: keju (back-end), eko (front-end), romeo (UI/UX)  
+Cara push branch masing - masing:
 
 ```bash
 # masuk ke branch kalian
-git checkout -b nama-branch-kalian
+git checkout -f nama-branch-kalian
 # Sesuaikan dengan nama file yang diubah saja
 git add filepath/relatif
 git commit -m "Deskripsi perubahan (wajib diisi)"
@@ -260,10 +257,12 @@ git push -u origin nama-branch-kalian
 - **Frontend**: Blade Template Engine
 - **Package Manager**: Composer
 
-## Peraturan Merging
-
-Jika ingin berkontribusi mohon buat Pull Request dan hubungi admin
-
 ## License
 
-Project ini dibuat untuk keperluan akademik dan hak cipta diatur oleh suasana hati masing - masing.
+This project is proprietary software.
+
+Free for personal, educational, and other non-commercial use only.
+Commercial use, redistribution, and reuse of original branding are prohibited.
+Attribution with a link to the original project is required.
+
+See the [LICENSE](LICENSE) file for full terms.
