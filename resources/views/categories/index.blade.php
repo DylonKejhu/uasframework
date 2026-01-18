@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <!-- Table Card -->
+            <!-- Table-->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-emerald-200/50">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">

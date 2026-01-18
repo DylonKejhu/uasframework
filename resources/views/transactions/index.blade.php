@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-emerald-50 to-white">
-        <!-- Header Section with Back to Dashboard -->
+        <!-- Header Section -->
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col sm:flex-row flex-wrap justify-between items-start sm:items-center gap-6 mb-10">
                 <div>
@@ -40,7 +40,7 @@
                 </div>
             @endif
 
-            <!-- Transactions Table Card -->
+            <!-- Transactions Table -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-emerald-100">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
