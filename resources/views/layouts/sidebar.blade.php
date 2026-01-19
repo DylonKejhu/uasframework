@@ -5,14 +5,14 @@
             <img src="{{ asset('logo.webp') }}" alt="ParamFresh" class="w-full h-auto max-w-[200px] mx-auto">
         </div>
         <nav class="space-y-2">
-            <a href="{{ route('dashboard') }}"
-               class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition {{ Route::currentRouteName() == 'dashboard' ? 'bg-emerald-700' : '' }}">
-                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                Dashboard
-            </a>
-
             @auth
                 @if(auth()->user()->canAccessOwnerFeatures())
+                    <a href="{{ route('dashboard') }}"
+                       class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition {{ Route::currentRouteName() == 'dashboard' ? 'bg-emerald-700' : '' }}">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        Dashboard
+                    </a>
+
                     <a href="{{ route('products.index') }}"
                        class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition {{ Route::currentRouteName() == 'products.index' ? 'bg-emerald-700' : '' }}">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
@@ -32,11 +32,13 @@
                     Transaksi
                 </a>
 
-                <a href="{{ route('orders.index') }}"
-                    class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition {{ str_starts_with(Route::currentRouteName(), 'orders.') ? 'bg-emerald-700' : '' }}">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                    Orderan
-                </a>
+                @if(auth()->user()->canAccessOwnerFeatures())
+                    <a href="{{ route('orders.index') }}"
+                        class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition {{ str_starts_with(Route::currentRouteName(), 'orders.') ? 'bg-emerald-700' : '' }}">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        Orderan
+                    </a>
+                @endif
 
                 @if(auth()->user()->canManageUsers())
                     <a href="{{ route('users.index') }}"

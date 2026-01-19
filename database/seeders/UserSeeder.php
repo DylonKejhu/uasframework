@@ -21,16 +21,61 @@ class UserSeeder extends Seeder
         // Create admin account
         User::create([
             'name' => 'Admin',
-            'email' => 'admin@paramfresh.com',
-            'password' => Hash::make('password'),
+            'email' => 'admin@keju.com',
+            'password' => Hash::make('rawr'),
             'role' => 'admin',
         ]);
 
-        // Create regular user account
+        // Kelompok 1
         User::create([
-            'name' => 'User',
-            'email' => 'user@paramfresh.com',
-            'password' => Hash::make('password'),
+            'name' => 'Kelompok 1',
+            'email' => 'kelompok@1.com',
+            'password' => Hash::make('kelompok'),
+            'role' => 'user',
+        ]);
+
+        // Kelompok 3
+        User::create([
+            'name' => 'Kelompok 3',
+            'email' => 'kelompok@3.com',
+            'password' => Hash::make('kelompok'),
+            'role' => 'user',
+        ]);
+
+        // Kelompok 4
+        User::create([
+            'name' => 'Kelompok 4',
+            'email' => 'kelompok@4.com',
+            'password' => Hash::make('kelompok'),
+            'role' => 'user',
+        ]);
+
+        // Kelompok 5
+        User::create([
+            'name' => 'Kelompok 5',
+            'email' => 'kelompok@5.com',
+            'password' => Hash::make('kelompok'),
+            'role' => 'user',
+        ]);
+        // Kelompok 6
+        User::create([
+            'name' => 'Kelompok 6',
+            'email' => 'kelompok@6.com',
+            'password' => Hash::make('kelompok'),
+            'role' => 'user',
+        ]);
+        // Kelompok 7
+        User::create([
+            'name' => 'Kelompok 7',
+            'email' => 'kelompok@7.com',
+            'password' => Hash::make('kelompok'),
+            'role' => 'user',
+        ]);
+        // Kelompok 8
+        User::create([
+            'name' => 'Kelompok 8',
+            'email' => 'kelompok@8.com',
+            'password' => Hash::make('kelompok'),
             'role' => 'user',
         ]);
     }
