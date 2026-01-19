@@ -144,10 +144,17 @@
                                     <tr>
                                         <td colspan="7" class="px-6 py-16 text-center text-gray-500 italic bg-gray-50">
                                             @if(request('search') || request('category_id'))
-                                                Tidak ditemukan produk yang sesuai dengan pencarian Anda.
+                                                <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                                </svg>
+                                                <p class="text-lg font-medium">Tidak ditemukan produk yang sesuai dengan pencarian</p>
+                                                <p class="text-sm mt-2">Coba ubah kata kunci pencarian atau filter kategori</p>
                                             @else
-                                                Belum ada produk terdaftar.<br>
-                                                Klik tombol di atas untuk menambahkan produk pertama Anda!
+                                                <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                                                </svg>
+                                                <p class="text-lg font-medium">Belum ada produk terdaftar</p>
+                                                <p class="text-sm mt-2">Klik tombol "Tambah Produk Baru" untuk menambahkan produk pertama Anda</p>
                                             @endif
                                         </td>
                                     </tr>

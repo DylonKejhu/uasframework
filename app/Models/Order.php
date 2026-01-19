@@ -13,6 +13,7 @@ class Order extends Model
         'supplier_name',
         'total_cost',
         'notes',
+        'status',
     ];
 
     protected $casts = [
