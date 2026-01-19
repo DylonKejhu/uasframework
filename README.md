@@ -2,7 +2,9 @@
 
 ParamFresh adalah sistem web untuk mendigitalisasi operasional toko yang menjual sayuran segar, bumbu dapur, bahan masakan, daging & makanan laut, serta minyak dan saus. Sistem ini dikembangkan untuk mengatasi pencatatan transaksi yang tidak terintegrasi dengan stok dan order brang, sehingga tujuan dibuatnya projek ini adalah untuk mempermudah pengelolaan inventaris yang lebih akurat.
 
-Project ini dibangun menggunakan **Laravel 12**, **PHP 8.2** dan **Tailwind**, dengan database MySQL.
+Project ini dibangun menggunakan **Laravel 12**, **PHP 8.2** dan **Tailwind**, dengan database **MySQL**.
+
+[Preview Dashboard](https://i.imgur.com/7HyybqY.png)
 
 ## Kontributor
 
@@ -14,18 +16,17 @@ Project ini dibangun menggunakan **Laravel 12**, **PHP 8.2** dan **Tailwind**, d
 
 ### Fitur yang Dikerjakan
 
-- ⬜ **Authentication & Authorization**
-  - ⬜ Login/Register
-  - ⬜ Role Management (Admin, Kasir)
-  - ⬜ Middleware untuk proteksi route
-  - ⬜ Session management
+- ✅ **Authentication & Authorization**
+  - ✅ Form Login
+  - ✅ Role Management (Owner, Admin, User)
+  - ✅ Middleware untuk proteksi route
 
 - ✅ **CRUD Produk**
-  - ✅ Form barebone untuk tambah & edit produk
+  - ✅ Form untuk tambah & edit produk
   - ✅ Tabel produk menampilkan: Nama, Kategori, Harga, Satuan, Stok
   
 - ✅ **CRUD Kategori**
-  - ✅ Form barebone untuk tambah & edit kategori
+  - ✅ Form untuk tambah & edit kategori
   
 - ✅ **CR Transaksi**
   - ✅ Form checkout dengan multi-select produk
@@ -44,7 +45,7 @@ Project ini dibangun menggunakan **Laravel 12**, **PHP 8.2** dan **Tailwind**, d
   - ✅ Order terkunci setelah dikonfirmasi
   - ✅ Filter order berdasarkan tanggal
   
-- ✅ **Seeder untuk data awal** (produk & kategori)
+- ✅ **Seeder untuk data awal** (produk, kategori & user)
 
 - ✅ **Search & Filter**
   - ✅ Pencarian produk tiap controller
