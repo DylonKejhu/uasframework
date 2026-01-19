@@ -29,27 +29,24 @@
                 <!-- Filter Section -->
                 <div class="mb-8 bg-white rounded-xl shadow-md p-6 border border-emerald-100">
                     <form method="GET" action="{{ route('transactions.index') }}" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Date From -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Dari Tanggal</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Mulai</label>
                                 <input type="date" 
-                                       name="date_from" 
-                                       value="{{ request('date_from') }}"
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+                                    name="date_from" 
+                                    value="{{ request('date_from') }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none">
                             </div>
 
                             <!-- Date To -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Sampai Tanggal</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Akhir</label>
                                 <input type="date" 
-                                       name="date_to" 
-                                       value="{{ request('date_to') }}"
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+                                    name="date_to" 
+                                    value="{{ request('date_to') }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none">
                             </div>
-
-                            <!-- Empty column for alignment -->
-                            <div class="hidden md:block"></div>
                         </div>
 
                         <!-- Action Buttons -->
@@ -62,7 +59,7 @@
                                 Filter
                             </button>
                             <a href="{{ route('transactions.index') }}"
-                               class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium">
+                            class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium">
                                 Reset
                             </a>
                         </div>
