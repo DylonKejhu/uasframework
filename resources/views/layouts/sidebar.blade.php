@@ -1,7 +1,9 @@
 <!-- resources/views/layouts/sidebar.blade.php -->
 <aside class="hidden md:block w-64 bg-emerald-800 text-white h-screen sticky top-0 overflow-y-auto shadow-lg">
     <div class="p-6">
-        <h1 class="text-2xl font-bold tracking-tight mb-10">ParamFresh</h1>
+        <div class="mb-10">
+            <img src="{{ asset('logo.webp') }}" alt="ParamFresh" class="w-full h-auto max-w-[200px] mx-auto">
+        </div>
         <nav class="space-y-2">
             <a href="{{ route('dashboard') }}"
                class="flex items-center px-4 py-3 rounded-lg hover:bg-emerald-700 transition {{ Route::currentRouteName() == 'dashboard' ? 'bg-emerald-700' : '' }}">

@@ -25,10 +25,12 @@
     <div class="min-h-screen flex items-center justify-center p-4">
         <div class="max-w-md w-full">
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-emerald-100">
-                <!-- Header -->
-                <div class="bg-emerald-600 px-8 py-10 text-white text-center">
-                    <h1 class="text-4xl font-bold">ParamFresh</h1>
-                    <p class="mt-2 text-emerald-100 text-lg">Toko Sayur Segar</p>
+                <!-- Header with Logo -->
+                <div class="bg-emerald-600 px-8 py-10 text-center">
+                    <div class="flex justify-center mb-4">
+                        <img src="{{ asset('logo.webp') }}" alt="ParamFresh" class="h-50 w-auto">
+                    </div>
+                    <p class="text-emerald-50 text-sm font-light">Aneka Sembako, Sayur Mayur, Lauk Pauk, Bumbu<br>Dan Perlengkapan Dapur Lainnya</p>
                 </div>
 
                 <!-- Form -->
@@ -58,7 +60,7 @@
                                    value="{{ old('email') }}"
                                    required
                                    autofocus
-                                   placeholder="email@example.com"
+                                   placeholder="kejumanis@example.com"
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition">
                         </div>
 
@@ -70,19 +72,21 @@
                                    name="password" 
                                    id="password" 
                                    required
-                                   placeholder="••••••••"
+                                   placeholder="password"
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition">
                         </div>
 
                         <div>
-                            <label class="flex items-center">
-                                <input type="checkbox" name="remember" class="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500">
-                                <span class="ml-2 text-sm text-gray-700">Ingat saya</span>
+                            <label class="flex items-center cursor-pointer group">
+                                <input type="checkbox" 
+                                       name="remember" 
+                                       class="w-5 h-5 text-emerald-600 bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-emerald-500 focus:ring-offset-0 transition-all cursor-pointer checked:bg-emerald-600 checked:border-emerald-600">
+                                <span class="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors select-none">Ingat saya</span>
                             </label>
                         </div>
 
                         <button type="submit" 
-                                class="w-full px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg shadow-md transition-all duration-200">
+                                class="w-full px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02]">
                             Login
                         </button>
                     </form>
