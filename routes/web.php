@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\OrderController;
 
 
 
@@ -17,3 +18,5 @@ Route::resource('categories', CategoryController::class);
 Route::resource('products', ProductController::class);
 // Transaction Routes (Tidak full resource karena modifikasi struk ity berbahaya)
 Route::resource('transactions', TransactionController::class)->only(['index', 'create', 'store']);
+// Order Routes (Tidak full resource karena destroy order ity berbahaya)
+Route::resource('orders', OrderController::class)->except(['destroy']);

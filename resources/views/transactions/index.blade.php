@@ -117,10 +117,17 @@
                                     <tr>
                                         <td colspan="4" class="px-6 py-16 text-center text-gray-500 italic bg-gray-50">
                                             @if(request('date_from') || request('date_to'))
-                                                Tidak ditemukan transaksi pada rentang tanggal tersebut.
+                                                <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                                </svg>
+                                                <p class="text-lg font-medium">Tidak ditemukan transaksi pada periode yang dipilih</p>
+                                                <p class="text-sm mt-2">Coba ubah filter tanggal atau reset pencarian</p>
                                             @else
-                                                Belum ada transaksi.<br>
-                                                Klik tombol di atas untuk membuat transaksi pertama Anda!
+                                                <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                                                </svg>
+                                                <p class="text-lg font-medium">Belum ada transaksi terdaftar</p>
+                                                <p class="text-sm mt-2">Klik tombol "Tambah Transaksi Baru" untuk membuat transaksi pertama Anda</p>
                                             @endif
                                         </td>
                                     </tr>
