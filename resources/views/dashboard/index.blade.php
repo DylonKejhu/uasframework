@@ -13,6 +13,108 @@
                     <p class="text-emerald-700 mt-2">Kelola stok & transaksi toko sayur segar Anda</p>
                 </header>
 
+                <!-- === STATISTIK KEUANGAN UTAMA === -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Pendapatan Kotor -->
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-xl shadow-lg text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-medium opacity-90">Pendapatan Kotor</h3>
+                            <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <p class="text-3xl font-bold mb-1">Rp {{ number_format($grossRevenue, 0, ',', '.') }}</p>
+                        <p class="text-xs opacity-75">Total penjualan</p>
+                    </div>
+
+                    <!-- Total Pengeluaran -->
+                    <div class="bg-gradient-to-br from-red-500 to-red-600 p-6 rounded-xl shadow-lg text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-medium opacity-90">Total Pengeluaran</h3>
+                            <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                        <p class="text-3xl font-bold mb-1">Rp {{ number_format($totalExpenses, 0, ',', '.') }}</p>
+                        <p class="text-xs opacity-75">Biaya pembelian stok</p>
+                    </div>
+
+                    <!-- Pendapatan Bersih -->
+                    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 p-6 rounded-xl shadow-lg text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-medium opacity-90">Pendapatan Bersih</h3>
+                            <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                            </svg>
+                        </div>
+                        <p class="text-3xl font-bold mb-1">Rp {{ number_format($netRevenue, 0, ',', '.') }}</p>
+                        <p class="text-xs opacity-75">Keuntungan aktual</p>
+                    </div>
+
+                    <!-- Margin Keuntungan -->
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-xl shadow-lg text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-medium opacity-90">Margin Keuntungan</h3>
+                            <svg class="w-8 h-8 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <p class="text-3xl font-bold mb-1">{{ number_format($profitMargin, 1) }}%</p>
+                        <p class="text-xs opacity-75">Rasio keuntungan</p>
+                    </div>
+                </div>
+
+                <!-- === STATISTIK PERIODE === -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                    <!-- 7 Hari Terakhir -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-emerald-100">
+                        <h3 class="text-lg font-bold text-emerald-900 mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            7 Hari Terakhir
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                <span class="text-sm text-gray-700">Pendapatan Kotor</span>
+                                <span class="font-bold text-blue-600">Rp {{ number_format($weeklyRevenue, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                                <span class="text-sm text-gray-700">Pengeluaran</span>
+                                <span class="font-bold text-red-600">Rp {{ number_format($weeklyExpenses, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-emerald-50 rounded-lg border-2 border-emerald-200">
+                                <span class="text-sm font-semibold text-gray-800">Pendapatan Bersih</span>
+                                <span class="font-bold text-emerald-700">Rp {{ number_format($weeklyNetRevenue, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bulan Ini -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-emerald-100">
+                        <h3 class="text-lg font-bold text-emerald-900 mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Bulan Ini ({{ now()->format('F Y') }})
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                <span class="text-sm text-gray-700">Pendapatan Kotor</span>
+                                <span class="font-bold text-blue-600">Rp {{ number_format($monthlyRevenue, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                                <span class="text-sm text-gray-700">Pengeluaran</span>
+                                <span class="font-bold text-red-600">Rp {{ number_format($monthlyExpenses, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-emerald-50 rounded-lg border-2 border-emerald-200">
+                                <span class="text-sm font-semibold text-gray-800">Pendapatan Bersih</span>
+                                <span class="font-bold text-emerald-700">Rp {{ number_format($monthlyNetRevenue, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Search & Filter Section -->
                 <div class="mb-8 bg-white rounded-xl shadow-md p-6 border border-emerald-100">
                     <form method="GET" action="{{ route('dashboard') }}" class="space-y-4">
@@ -142,8 +244,8 @@
                         <p class="text-3xl font-bold text-emerald-600 mt-2">{{ $totalTransactions }}</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-md border border-emerald-100">
-                        <h3 class="text-lg font-semibold text-emerald-800">Total Pendapatan</h3>
-                        <p class="text-3xl font-bold text-emerald-600 mt-2">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</p>
+                        <h3 class="text-lg font-semibold text-emerald-800">Total Orderan</h3>
+                        <p class="text-3xl font-bold text-emerald-600 mt-2">{{ $totalOrders ?? 0 }}</p>
                     </div>
                 </div>
 
@@ -260,31 +362,94 @@
                     </div>
                 </div>
 
-                <!-- Transaction History (Last 7 Days) -->
+                <!-- Recent Orders -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-12 border border-emerald-100">
+                    <h2 class="text-2xl font-bold text-emerald-900 mb-6">Orderan Terbaru</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-emerald-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">ID</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Supplier</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Total Biaya</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Status</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @forelse($recentOrders as $order)
+                                    <tr>
+                                        <td class="px-6 py-4 text-sm text-gray-600">{{ $order->id }}</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $order->supplier_name }}</td>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                                            Rp {{ number_format($order->total_cost, 0, ',', '.') }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm">
+                                            @if($order->status === 'received')
+                                                <span class="inline-flex items-center px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-semibold rounded-full">
+                                                    Diterima
+                                                </span>
+                                            @else
+                                                <span class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full">
+                                                    Pending
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">
+                                            {{ $order->created_at->format('d/m/Y H:i') }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-12 text-center text-gray-500 italic">
+                                            Belum ada orderan
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6">
+                        <a href="{{ route('orders.index') }}"
+                           class="inline-flex items-center px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition">
+                            Lihat Semua Orderan
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Financial History (Last 7 Days) -->
                 <div class="bg-white rounded-xl shadow-lg p-6 border border-emerald-100">
-                    <h2 class="text-2xl font-bold text-emerald-900 mb-6">Riwayat Transaksi (7 Hari Terakhir)</h2>
+                    <h2 class="text-2xl font-bold text-emerald-900 mb-6">Riwayat Keuangan (7 Hari Terakhir)</h2>
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-emerald-50">
                                 <tr>
                                     <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Tanggal</th>
                                     <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Jumlah Transaksi</th>
-                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Total Pendapatan</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Pendapatan</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Pengeluaran</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-emerald-800">Keuntungan Bersih</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
-                                @forelse($transactionChart as $chart)
+                                @forelse($financialChart as $chart)
                                     <tr>
                                         <td class="px-6 py-4 text-sm text-gray-600">{{ date('d/m/Y', strtotime($chart->date)) }}</td>
                                         <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ $chart->total }}</td>
-                                        <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                                        <td class="px-6 py-4 text-sm font-medium text-blue-600">
                                             Rp {{ number_format($chart->revenue, 0, ',', '.') }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm font-medium text-red-600">
+                                            Rp {{ number_format($chart->expenses, 0, ',', '.') }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm font-bold {{ $chart->net_revenue >= 0 ? 'text-emerald-600' : 'text-red-600' }}">
+                                            Rp {{ number_format($chart->net_revenue, 0, ',', '.') }}
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="3" class="px-6 py-12 text-center text-gray-500 italic">
-                                            Belum ada data transaksi 7 hari terakhir
+                                        <td colspan="5" class="px-6 py-12 text-center text-gray-500 italic">
+                                            Belum ada data keuangan 7 hari terakhir
                                         </td>
                                     </tr>
                                 @endforelse
