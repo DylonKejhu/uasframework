@@ -22,8 +22,8 @@
                 </div>
 
                 <!-- Search & Filter Section -->
-                <div class="p-8 lg:p-12 pb-0">
-                    <div class="mb-8 bg-emerald-50 rounded-xl shadow-sm p-6 border border-emerald-200">
+                <div class="pl-8 pr-8 lg:pl-12 lg:pr-12 pt-8 lg:pt-12 pb-0">
+                    <div class="mb-6 bg-emerald-50 rounded-xl shadow-sm p-6 border border-emerald-200">
                         <form method="GET" action="{{ route('transactions.create') }}" class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <!-- Search Input -->
@@ -72,7 +72,7 @@
 
                 <!-- Error Message -->
                 @if ($errors->any())
-                    <div class="mx-8 lg:mx-12 mb-8 p-6 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-r">
+                    <div class="mx-8 lg:mx-12 mb-6 p-6 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-r">
                         <strong class="text-lg font-bold block mb-2">Error:</strong>
                         <ul class="list-disc pl-5 space-y-1">
                             @foreach ($errors->all() as $error)
