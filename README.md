@@ -27,12 +27,22 @@ Project ini dibangun menggunakan **Laravel 12**, **PHP 8.2** dan **Tailwind**, d
 - ✅ **CRUD Kategori**
   - ✅ Form barebone untuk tambah & edit kategori
   
-- ✅ **CRUD Transaksi**
+- ✅ **CR Transaksi**
   - ✅ Form checkout dengan multi-select produk
   - ✅ Validasi stok otomatis
   - ✅ Pengurangan stok otomatis setelah transaksi
   - ✅ Perhitungan total harga otomatis
   - ✅ Tabel transaksi menampilkan: ID, Total Harga, Detail Items, Tanggal
+
+- ✅ **CRU Orderan**
+  - ✅ Tambah order pembelian ke supplier (multi-item)
+  - ✅ Edit order selama status masih pending
+  - ✅ Detail order (supplier, tanggal, catatan, item, subtotal)
+  - ✅ Status order (pending / received)
+  - ✅ Konfirmasi penerimaan order
+  - ✅ Penambahan stok otomatis saat order diterima
+  - ✅ Order terkunci setelah dikonfirmasi
+  - ✅ Filter order berdasarkan tanggal
   
 - ✅ **Seeder untuk data awal** (produk & kategori)
 
@@ -41,12 +51,12 @@ Project ini dibangun menggunakan **Laravel 12**, **PHP 8.2** dan **Tailwind**, d
   - ✅ Filter berdasarkan kategori
   - ✅ Filter transaksi berdasarkan tanggal
 
-- ⬜ **Dashboard**
+- ✅ **Dashboard**
   - ✅ Statistik penjualan
   - ✅ Managemen Produk
   - ✅ Managemen Kategori
   - ✅ Managemen Transaksi
-  - ⬜ Managemen Order
+  - ✅ Managemen Order
 
 ## Cara Setup Lokal
 

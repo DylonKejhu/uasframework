@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Order - ParamaFresh')
+@section('title', 'Daftar Order|ParamaFresh')
 
 @section('content')
     <div class="min-h-screen bg-gradient-to-br from-emerald-50 to-green-50">
