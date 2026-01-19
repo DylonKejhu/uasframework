@@ -4,7 +4,7 @@ ParamFresh adalah sistem web untuk mendigitalisasi operasional toko yang menjual
 
 Project ini dibangun menggunakan **Laravel 12**, **PHP 8.2** dan **Tailwind**, dengan database **MySQL**.
 
-[Preview Dashboard](https://i.imgur.com/7HyybqY.png)
+![Preview Dashboard](https://i.imgur.com/pcbb0JZ.png)
 
 ## Kontributor
 
