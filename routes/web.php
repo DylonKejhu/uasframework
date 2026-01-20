@@ -16,22 +16,30 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Protected Routes (Require Authentication)
 Route::middleware(['auth'])->group(function () {
     
-    // Dashboard Routes (All authenticated users)
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    
-    // Transaction & Order Routes (All authenticated users can access)
-    Route::resource('transactions', TransactionController::class)->only(['index', 'create', 'store']);
-    Route::resource('orders', OrderController::class)->except(['destroy']);
-    
-    // Owner & Admin Routes (Products, Categories)
-    Route::middleware(['role:owner,admin'])->group(function () {
-        Route::resource('categories', CategoryController::class);
-        Route::resource('products', ProductController::class);
+    // Redirect root based on role
+    Route::get('/', function () {
+        if (auth()->user()->canAccessOwnerFeatures()) {
+            return redirect()->route('dashboard');
+        }
+        return redirect()->route('transactions.index');
     });
     
-    // User Management Routes (Owner & Admin can access)
+    // Transaction Routes (All authenticated users can access)
+    Route::resource('transactions', TransactionController::class)->only(['index', 'create', 'store']);
+    
+    // Owner & Admin Only Routes
     Route::middleware(['role:owner,admin'])->group(function () {
+        // Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        
+        // Categories & Products
+        Route::resource('categories', CategoryController::class);
+        Route::resource('products', ProductController::class);
+        
+        // Orders
+        Route::resource('orders', OrderController::class)->except(['destroy']);
+        
+        // User Management
         Route::resource('users', UserController::class);
     });
 });

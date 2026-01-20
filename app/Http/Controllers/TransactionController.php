@@ -13,7 +13,7 @@ class TransactionController extends Controller
     // Method untuk menampilkan daftar transaksi dengan filter tanggal
     public function index(Request $request)
     {
-        $query = Transaction::with(['items.product']);
+        $query = Transaction::with(['items.product', 'user']);
         
         // Filter berdasarkan tanggal mulai
         if ($request->has('date_from') && $request->date_from != '') {
@@ -65,6 +65,7 @@ class TransactionController extends Controller
             DB::transaction(function () use ($request) {
 
                 $transaction = Transaction::create([
+                    'user_id' => auth()->id(), // Auto simpan kasir yang login
                     'total_price' => 0,
                 ]);
 

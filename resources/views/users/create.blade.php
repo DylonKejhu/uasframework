@@ -101,7 +101,9 @@
                                     class="w-full px-5 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none bg-white text-lg shadow-sm transition-all">
                                 <option value="">-- Pilih Role --</option>
                                 <option value="user" {{ old('role') === 'user' ? 'selected' : '' }}>User</option>
-                                <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Admin</option>
+                                @if(auth()->user()->isOwner())
+                                    <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Admin</option>
+                                @endif
                             </select>
                             @error('role')
                                 <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>

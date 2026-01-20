@@ -29,6 +29,13 @@ class UserController extends Controller
             'role' => ['required', Rule::in(['user', 'admin'])],
         ]);
 
+        // Admin tidak bisa membuat Admin baru
+        if (auth()->user()->isAdmin() && $validated['role'] === 'admin') {
+            return redirect()->back()
+                ->withErrors(['role' => 'Admin tidak dapat membuat akun Admin baru.'])
+                ->withInput();
+        }
+
         $validated['password'] = Hash::make($validated['password']);
 
         User::create($validated);
